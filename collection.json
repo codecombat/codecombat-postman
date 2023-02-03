@@ -1,0 +1,971 @@
+{
+  "info": {
+    "name": "CodeCombat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://codecombat.com/api",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{username}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{password}}",
+        "type": "string"
+      }
+    ],
+    "type": "basic"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login User",
+          "request": {
+            "description": "Logs a [user](#users) in. #### Example ```javascript url = `https://codecombat.com/auth/login-o-auth?provider=${OAUTH_PROVIDER_ID}&accessToken=1234` res.redirect(url) // User is sent to this CodeCombat URL and assuming everything checks out,  // is logged in and redirected to the home page. ``` In this example, we call your lookup URL (let's say, `https://oauth.provider/user?t=<%= accessToken %>`) with the access token (`1234`). The lookup URL returns `{ id: 'abcd' }` in this case. We will match this `id` with the OAuthIdentity stored in the user information in our db. If everything checks out, the user is logged in and redirected to the home page.\n",
+            "url": {
+              "raw": "{{baseUrl}}/auth/login-o-auth?provider=&accessToken=&code=&redirect=&errorRedirect=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login-o-auth"
+              ],
+              "query": [
+                {
+                  "key": "provider",
+                  "value": "",
+                  "description": "Your OAuth Provider ID"
+                },
+                {
+                  "key": "accessToken",
+                  "value": "",
+                  "description": "Will be passed through your lookup URL to get the user ID. Required if no `code`."
+                },
+                {
+                  "key": "code",
+                  "value": "",
+                  "description": "Will be passed to the OAuth token endpoint to get a token. Required if no `accessToken`."
+                },
+                {
+                  "key": "redirect",
+                  "value": "",
+                  "description": "Override where the user will navigate to after successfully logging in."
+                },
+                {
+                  "key": "errorRedirect",
+                  "value": "",
+                  "description": "If an error happens, redirects the user to this url, with at least query parameters `code`, `errorName` and `message`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        }
+      ],
+      "_type": "container"
+    },
+    {
+      "name": "Clans",
+      "item": [
+        {
+          "name": "Upsert User Into Clan",
+          "request": {
+            "description": "Upserts a user into the clan.",
+            "url": {
+              "raw": "{{baseUrl}}/clan/{handle}/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clan",
+                "{handle}",
+                "members"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        }
+      ],
+      "_type": "container"
+    },
+    {
+      "name": "Classrooms",
+      "item": [
+        {
+          "name": "Get Classroom Details",
+          "request": {
+            "description": "Returns the classroom details for a class code.",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms?code=&retMemberLimit=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms"
+              ],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "",
+                  "description": "The classroom's `code`."
+                },
+                {
+                  "key": "retMemberLimit",
+                  "value": "",
+                  "description": "limit the return number of members for the classroom"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Create a Classroom",
+          "request": {
+            "description": "Creates a new empty `Classroom`.",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"example\",\n    \"ownerID\": \"example\",\n    \"aceConfig\": {\n        \"language\": \"example\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Upsert a User from Classroom",
+          "request": {
+            "description": "Upserts a user into the classroom.",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms/:handle/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms",
+                ":handle",
+                "members"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"code\": \"example\",\n    \"userId\": \"example\",\n    \"retMemberLimit\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Delete User from Classroom",
+          "request": {
+            "description": "Remove a user from the classroom.",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms/:handle/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms",
+                ":handle",
+                "members"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"example\",\n    \"retMemberLimit\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Enroll a User in a Course",
+          "request": {
+            "description": "Enrolls a user in a course in a classroom.\nIf the course is paid, user must have an active license.\nUser must be a member of the classroom.\n",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms/:classroomHandle/courses/:courseHandle/enrolled?retMemberLimit=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms",
+                ":classroomHandle",
+                "courses",
+                ":courseHandle",
+                "enrolled"
+              ],
+              "query": [
+                {
+                  "key": "retMemberLimit",
+                  "value": "",
+                  "description": "limit the return number of members for the classroom, the default value is 1000"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "classroomHandle",
+                  "value": "",
+                  "description": "The classroom's `_id`."
+                },
+                {
+                  "key": "courseHandle",
+                  "value": "",
+                  "description": "The course's `_id`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Remove a User from a Classroom",
+          "request": {
+            "description": "Removes an enrolled user from a course in a classroom.\n",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms/:classroomHandle/courses/:courseHandle/remove-enrolled?retMemberLimit=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms",
+                ":classroomHandle",
+                "courses",
+                ":courseHandle",
+                "remove-enrolled"
+              ],
+              "query": [
+                {
+                  "key": "retMemberLimit",
+                  "value": "",
+                  "description": "limit the return number of members for the classroom, the default value is 1000"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "classroomHandle",
+                  "value": "",
+                  "description": "The classroom's `_id`."
+                },
+                {
+                  "key": "courseHandle",
+                  "value": "",
+                  "description": "The course's `_id`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Get Members Stats for a Classroom",
+          "request": {
+            "description": "Returns a list of all members stats for the classroom.\n",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms/:classroomHandle/stats?project=&memberLimit=&memberSkip=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms",
+                ":classroomHandle",
+                "stats"
+              ],
+              "query": [
+                {
+                  "key": "project",
+                  "value": "",
+                  "description": "If specified, include only the specified projection of returned stats; else, return all stats. Format as a comma-separated list, like `creator,playtime,state.complete`.\n"
+                },
+                {
+                  "key": "memberLimit",
+                  "value": "",
+                  "description": "Limit the return member number. the default value is 10, and the max value is 100"
+                },
+                {
+                  "key": "memberSkip",
+                  "value": "",
+                  "description": "Skip the members that doesn't need to return, for pagination\n"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "classroomHandle",
+                  "value": "",
+                  "description": "The classroom's `_id`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Get Level Session",
+          "request": {
+            "description": "Returns a list of all levels played by the user for the classroom.\n",
+            "url": {
+              "raw": "{{baseUrl}}/classrooms/:classroomHandle/members/:memberHandle/sessions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classrooms",
+                ":classroomHandle",
+                "members",
+                ":memberHandle",
+                "sessions"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "classroomHandle",
+                  "value": "",
+                  "description": "The classroom's `_id`."
+                },
+                {
+                  "key": "memberHandle",
+                  "value": "",
+                  "description": "The classroom member's `_id`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        }
+      ],
+      "_type": "container"
+    },
+    {
+      "name": "Stats",
+      "item": [
+        {
+          "name": "Get Playtime Stats",
+          "request": {
+            "description": "Returns the playtime stats",
+            "url": {
+              "raw": "{{baseUrl}}/playtime-stats?startDate=&endDate=&country=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "playtime-stats"
+              ],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "",
+                  "description": "Earliest an included user was created"
+                },
+                {
+                  "key": "endDate",
+                  "value": "",
+                  "description": "Latest an included user was created"
+                },
+                {
+                  "key": "country",
+                  "value": "",
+                  "description": "Filter by country string"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Get License Stats",
+          "request": {
+            "description": "Returns the license stats",
+            "url": {
+              "raw": "{{baseUrl}}/license-stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "license-stats"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        }
+      ],
+      "_type": "container"
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "description": "Creates a `User`.\n#### Example\n```javascript\nurl = 'https://codecombat.com/api/users'\njson = { email: 'an@email.com', name: 'Some Username', role: 'student' }\nrequest.post({ url, json, auth })\n```\n",
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"example\",\n    \"email\": \"example\",\n    \"role\": \"student\",\n    \"preferredLanguage\": \"example\",\n    \"heroConfig\": {\n        \"thangType\": \"example\"\n    },\n    \"birthday\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "description": "Returns a `User`.",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle?includePlayTime=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle"
+              ],
+              "query": [
+                {
+                  "key": "includePlayTime",
+                  "value": "",
+                  "description": "Set to non-empty string to include stats.playTime in response"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "description": "Modify name of a `User`",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"example\",\n    \"birthday\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Get Classrooms By User",
+          "request": {
+            "description": "Returns a list of `Classrooms` this user is in (if a student) or owns (if a teacher).",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/classrooms?retMemberLimit=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "classrooms"
+              ],
+              "query": [
+                {
+                  "key": "retMemberLimit",
+                  "value": "",
+                  "description": "limit the return number of members for each classroom"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Get User Hero",
+          "request": {
+            "description": "Set the user's hero.",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/hero-config",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "hero-config"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"thangType\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "setAceConfig",
+          "request": {
+            "description": "Set the user's aceConfig (the settings for the in-game Ace code editor), such as whether to enable autocomplete.",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/ace-config",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "ace-config"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"liveCompletion\": true,\n    \"behaviors\": true,\n    \"language\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Add OAuth2 Identity",
+          "request": {
+            "description": "Adds an OAuth2 identity to the user, so that they can be logged in with that identity. You need to send the OAuth code or the access token to this endpoint. 1. If no access token is provided, it will use your OAuth2 token URL to exchange the given code for an access token. 1. Then it will use the access token (given by you, or received from step 1) to look up the user on your service using the lookup URL, and expects a JSON object in response with an `id` property. 1. It will then save that user `id` to the user in our db as a new OAuthIdentity. #### Example ```javascript url = `https://codecombat.com/api/users/${userID}/o-auth-identities` OAUTH_PROVIDER_ID = 'xyz' json = { provider: OAUTH_PROVIDER_ID, accessToken: '1234' } request.post({ url, json, auth}, (err, res) => {\n  console.log(res.body.oAuthIdentities) // [ { provider: 'xyx', id: 'abcd' } ]\n}) ``` In this example, we call your lookup URL (let's say, `https://oauth.provider/user?t=<%= accessToken %>`) with the access token (`1234`). The lookup URL returns `{ id: 'abcd' }` in this case, which we save to the user in our db.\n",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/o-auth-identities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "o-auth-identities"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"provider\": \"example\",\n    \"accessToken\": \"example\",\n    \"code\": \"example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "updateSubscription",
+          "request": {
+            "description": "Grants a user premium access to the \"Home\" version up to a certain time.\n#### Example\n```javascript\nurl = `https://codecombat.com/api/users/${userID}/subscription`\njson = { ends: new Date('2017-01-01').toISOString() }\nrequest.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.subscription) // { ends: '2017-01-01T00:00:00.000Z', active: true }\n})\n```\n",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/subscription",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "subscription"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Shorten User Subscription",
+          "request": {
+            "description": "If the user already has a premium access up to a certain time, this shortens/revokes his/her premium access. If the ends is less than or equal to the current time, it revokes the subscription and sets the end date to be the current time, else it just shortens the subscription. #### Example ```javascript url = `https://codecombat.com/api/users/${userID}/shorten-subscription` json = { ends: new Date().toISOString() } request.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.subscription.active) // false\n}) ```\n",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/shorten-subscription",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "shorten-subscription"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Grant User License",
+          "request": {
+            "description": "Grants a user access to the \"Classroom\" version up to a certain time.\nSets their role to \"student\".\n#### Example\n```javascript\nurl = `https://codecombat.com/api/users/${userID}/license`\njson = { ends: new Date('2017-01-01').toISOString() }\nrequest.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.license) // { ends: '2017-01-01T00:00:00.000Z', active: true }\n})\n```\n",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/license",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "license"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Shorten User License",
+          "request": {
+            "description": "If the user already has access to the \"Classroom\" version up to a certain time, this shortens/revokes his/her access. If the ends is less than or equal to the current time, it revokes the enrollment and sets the end date to be the current time, else it just shortens the enrollment. #### Example ```javascript url = `https://codecombat.com/api/users/${userID}/shorten-license` json = { ends: new Date().toISOString() } request.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.license.active) // false\n}) ```\n",
+            "url": {
+              "raw": "{{baseUrl}}/users/:handle/shorten-license",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":handle",
+                "shorten-license"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "handle",
+                  "value": "",
+                  "description": "The document's `_id` or `slug`."
+                }
+              ]
+            },
+            "header": [],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "_type": "endpoint"
+        },
+        {
+          "name": "Search for User",
+          "request": {
+            "description": "Redirects to `/users/{handle}` given a unique, identifying property",
+            "url": {
+              "raw": "{{baseUrl}}/user-lookup/:property/:value",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user-lookup",
+                ":property",
+                ":value"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "property",
+                  "value": "",
+                  "description": "The property to lookup by. May either be `\"israel-id\"` or `\"name\"`."
+                },
+                {
+                  "key": "value",
+                  "value": "",
+                  "description": "The value to be looked up."
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET"
+          },
+          "response": [],
+          "_type": "endpoint"
+        }
+      ],
+      "_type": "container"
+    }
+  ]
+}
