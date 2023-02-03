@@ -1,8 +1,8 @@
-# {Company} Postman Collection
+# CodeCombat Postman Collection
 
 This repository contains a [Postman Collection](/collection.json) for the [{company} API](docs_url).
 
-[![Open in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/fern-api/workspace/fern-{company})
+[![Open in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/fern-api/workspace/codecombat)
 
 ## What is a Postman Collection?
 
@@ -10,4 +10,4 @@ This repository contains a [Postman Collection](/collection.json) for the [{comp
 
 ## Issues
 
-Feel free to [leave an issue](https://github.com/fern-{company}/{company}-postman/issues) on this repo.
+Feel free to [leave an issue](https://github.com/codecombat/codecombat-postman/issues) on this repo.
