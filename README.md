@@ -1,6 +1,6 @@
 # CodeCombat Postman Collection
 
-This repository contains a [Postman Collection](/collection.json) for the [{company} API](docs_url).
+This repository contains a [Postman Collection](/collection.json) for the [CodeCombat API](https://codecombat.mintlify.app/introduction).
 
 [![Open in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/fern-api/workspace/codecombat)
 
