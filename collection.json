@@ -1,7 +1,8 @@
 {
   "info": {
     "name": "CodeCombat API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": null
   },
   "variable": [
     {
@@ -21,6 +22,7 @@
     }
   ],
   "auth": {
+    "type": "basic",
     "basic": [
       {
         "key": "username",
@@ -32,17 +34,19 @@
         "value": "{{password}}",
         "type": "string"
       }
-    ],
-    "type": "basic"
+    ]
   },
   "item": [
     {
+      "_type": "container",
+      "description": null,
       "name": "Auth",
       "item": [
         {
+          "_type": "endpoint",
           "name": "Login User",
           "request": {
-            "description": "Logs a [user](#users) in. #### Example ```javascript url = `https://codecombat.com/auth/login-o-auth?provider=${OAUTH_PROVIDER_ID}&accessToken=1234` res.redirect(url) // User is sent to this CodeCombat URL and assuming everything checks out,  // is logged in and redirected to the home page. ``` In this example, we call your lookup URL (let's say, `https://oauth.provider/user?t=<%= accessToken %>`) with the access token (`1234`). The lookup URL returns `{ id: 'abcd' }` in this case. We will match this `id` with the OAuthIdentity stored in the user information in our db. If everything checks out, the user is logged in and redirected to the home page.\n",
+            "description": "Logs a user in. In this example, we call your lookup URL (let's say, `https://oauth.provider/user?t=<%= accessToken %>`) with the access token (`1234`). The lookup URL returns `{ id: 'abcd' }` in this case. We will match this `id` with the OAuthIdentity stored in the user information in our db. If everything checks out, the user is logged in and redirected to the home page.\n",
             "url": {
               "raw": "{{baseUrl}}/auth/login-o-auth?provider=&accessToken=&code=&redirect=&errorRedirect=",
               "host": [
@@ -82,29 +86,32 @@
               "variable": []
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         }
-      ],
-      "_type": "container"
+      ]
     },
     {
+      "_type": "container",
+      "description": null,
       "name": "Clans",
       "item": [
         {
+          "_type": "endpoint",
           "name": "Upsert User Into Clan",
           "request": {
             "description": "Upserts a user into the clan.",
             "url": {
-              "raw": "{{baseUrl}}/clan/{handle}/members",
+              "raw": "{{baseUrl}}/clan/:handle/members",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "clan",
-                "{handle}",
+                ":handle",
                 "members"
               ],
               "query": [],
@@ -118,6 +125,7 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"userId\": \"example\"\n}",
@@ -128,16 +136,17 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         }
-      ],
-      "_type": "container"
+      ]
     },
     {
+      "_type": "container",
+      "description": null,
       "name": "Classrooms",
       "item": [
         {
+          "_type": "endpoint",
           "name": "Get Classroom Details",
           "request": {
             "description": "Returns the classroom details for a class code.",
@@ -164,13 +173,15 @@
               "variable": []
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
-          "name": "Create a Classroom",
+          "_type": "endpoint",
+          "name": "Create a classroom",
           "request": {
             "description": "Creates a new empty `Classroom`.",
             "url": {
@@ -186,6 +197,7 @@
             },
             "header": [],
             "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"name\": \"example\",\n    \"ownerID\": \"example\",\n    \"aceConfig\": {\n        \"language\": \"example\"\n    }\n}",
@@ -196,11 +208,11 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
-          "name": "Upsert a User from Classroom",
+          "_type": "endpoint",
+          "name": "Upsert a user from classroom",
           "request": {
             "description": "Upserts a user into the classroom.",
             "url": {
@@ -224,6 +236,7 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"code\": \"example\",\n    \"userId\": \"example\",\n    \"retMemberLimit\": 0\n}",
@@ -234,10 +247,10 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Delete User from Classroom",
           "request": {
             "description": "Remove a user from the classroom.",
@@ -262,6 +275,7 @@
             },
             "header": [],
             "method": "DELETE",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"userId\": \"example\",\n    \"retMemberLimit\": 0\n}",
@@ -272,11 +286,11 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
-          "name": "Enroll a User in a Course",
+          "_type": "endpoint",
+          "name": "Enroll User in a Course",
           "request": {
             "description": "Enrolls a user in a course in a classroom.\nIf the course is paid, user must have an active license.\nUser must be a member of the classroom.\n",
             "url": {
@@ -313,6 +327,7 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"userId\": \"example\"\n}",
@@ -323,11 +338,11 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
-          "name": "Remove a User from a Classroom",
+          "_type": "endpoint",
+          "name": "Remove User from a classroom",
           "request": {
             "description": "Removes an enrolled user from a course in a classroom.\n",
             "url": {
@@ -364,6 +379,7 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"userId\": \"example\"\n}",
@@ -374,11 +390,11 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
-          "name": "Get Members Stats for a Classroom",
+          "_type": "endpoint",
+          "name": "Get Member Stats",
           "request": {
             "description": "Returns a list of all members stats for the classroom.\n",
             "url": {
@@ -417,12 +433,14 @@
               ]
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Get Level Session",
           "request": {
             "description": "Returns a list of all levels played by the user for the classroom.\n",
@@ -453,18 +471,21 @@
               ]
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         }
-      ],
-      "_type": "container"
+      ]
     },
     {
+      "_type": "container",
+      "description": null,
       "name": "Stats",
       "item": [
         {
+          "_type": "endpoint",
           "name": "Get Playtime Stats",
           "request": {
             "description": "Returns the playtime stats",
@@ -496,12 +517,14 @@
               "variable": []
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Get License Stats",
           "request": {
             "description": "Returns the license stats",
@@ -517,21 +540,24 @@
               "variable": []
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         }
-      ],
-      "_type": "container"
+      ]
     },
     {
-      "name": "Users",
+      "_type": "container",
+      "description": null,
+      "name": "users",
       "item": [
         {
+          "_type": "endpoint",
           "name": "Create User",
           "request": {
-            "description": "Creates a `User`.\n#### Example\n```javascript\nurl = 'https://codecombat.com/api/users'\njson = { email: 'an@email.com', name: 'Some Username', role: 'student' }\nrequest.post({ url, json, auth })\n```\n",
+            "description": "Creates a `User`.\n",
             "url": {
               "raw": "{{baseUrl}}/users",
               "host": [
@@ -545,6 +571,7 @@
             },
             "header": [],
             "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"name\": \"example\",\n    \"email\": \"example\",\n    \"role\": \"student\",\n    \"preferredLanguage\": \"example\",\n    \"heroConfig\": {\n        \"thangType\": \"example\"\n    },\n    \"birthday\": \"example\"\n}",
@@ -555,10 +582,10 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Get User",
           "request": {
             "description": "Returns a `User`.",
@@ -587,12 +614,14 @@
               ]
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Update User",
           "request": {
             "description": "Modify name of a `User`",
@@ -616,6 +645,7 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"name\": \"example\",\n    \"birthday\": \"example\"\n}",
@@ -626,10 +656,10 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Get Classrooms By User",
           "request": {
             "description": "Returns a list of `Classrooms` this user is in (if a student) or owns (if a teacher).",
@@ -659,12 +689,14 @@
               ]
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Get User Hero",
           "request": {
             "description": "Set the user's hero.",
@@ -689,6 +721,7 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"thangType\": \"example\"\n}",
@@ -699,11 +732,11 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
-          "name": "setAceConfig",
+          "_type": "endpoint",
+          "name": "Put Ace Config",
           "request": {
             "description": "Set the user's aceConfig (the settings for the in-game Ace code editor), such as whether to enable autocomplete.",
             "url": {
@@ -727,6 +760,7 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n    \"liveCompletion\": true,\n    \"behaviors\": true,\n    \"language\": \"example\"\n}",
@@ -737,51 +771,13 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
-          "name": "Add OAuth2 Identity",
+          "_type": "endpoint",
+          "name": "Put Subscription",
           "request": {
-            "description": "Adds an OAuth2 identity to the user, so that they can be logged in with that identity. You need to send the OAuth code or the access token to this endpoint. 1. If no access token is provided, it will use your OAuth2 token URL to exchange the given code for an access token. 1. Then it will use the access token (given by you, or received from step 1) to look up the user on your service using the lookup URL, and expects a JSON object in response with an `id` property. 1. It will then save that user `id` to the user in our db as a new OAuthIdentity. #### Example ```javascript url = `https://codecombat.com/api/users/${userID}/o-auth-identities` OAUTH_PROVIDER_ID = 'xyz' json = { provider: OAUTH_PROVIDER_ID, accessToken: '1234' } request.post({ url, json, auth}, (err, res) => {\n  console.log(res.body.oAuthIdentities) // [ { provider: 'xyx', id: 'abcd' } ]\n}) ``` In this example, we call your lookup URL (let's say, `https://oauth.provider/user?t=<%= accessToken %>`) with the access token (`1234`). The lookup URL returns `{ id: 'abcd' }` in this case, which we save to the user in our db.\n",
-            "url": {
-              "raw": "{{baseUrl}}/users/:handle/o-auth-identities",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                ":handle",
-                "o-auth-identities"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "key": "handle",
-                  "value": "",
-                  "description": "The document's `_id` or `slug`."
-                }
-              ]
-            },
-            "header": [],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"provider\": \"example\",\n    \"accessToken\": \"example\",\n    \"code\": \"example\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [],
-          "_type": "endpoint"
-        },
-        {
-          "name": "updateSubscription",
-          "request": {
-            "description": "Grants a user premium access to the \"Home\" version up to a certain time.\n#### Example\n```javascript\nurl = `https://codecombat.com/api/users/${userID}/subscription`\njson = { ends: new Date('2017-01-01').toISOString() }\nrequest.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.subscription) // { ends: '2017-01-01T00:00:00.000Z', active: true }\n})\n```\n",
+            "description": "Grants a user premium access to the \"Home\" version up to a certain time.\n",
             "url": {
               "raw": "{{baseUrl}}/users/:handle/subscription",
               "host": [
@@ -803,9 +799,10 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "raw": "{\n    \"ends\": \"example\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -813,13 +810,13 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Shorten User Subscription",
           "request": {
-            "description": "If the user already has a premium access up to a certain time, this shortens/revokes his/her premium access. If the ends is less than or equal to the current time, it revokes the subscription and sets the end date to be the current time, else it just shortens the subscription. #### Example ```javascript url = `https://codecombat.com/api/users/${userID}/shorten-subscription` json = { ends: new Date().toISOString() } request.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.subscription.active) // false\n}) ```\n",
+            "description": "If the user already has a premium access up to a certain time, this shortens/revokes his/her premium access. If the ends is less than or equal to the current time, it revokes the subscription and sets the end date to be the current time, else it just shortens the subscription.\n",
             "url": {
               "raw": "{{baseUrl}}/users/:handle/shorten-subscription",
               "host": [
@@ -841,9 +838,10 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "raw": "{\n    \"ends\": \"example\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -851,13 +849,13 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Grant User License",
           "request": {
-            "description": "Grants a user access to the \"Classroom\" version up to a certain time.\nSets their role to \"student\".\n#### Example\n```javascript\nurl = `https://codecombat.com/api/users/${userID}/license`\njson = { ends: new Date('2017-01-01').toISOString() }\nrequest.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.license) // { ends: '2017-01-01T00:00:00.000Z', active: true }\n})\n```\n",
+            "description": "Grants a user access to the \"Classroom\" version up to a certain time.\nSets their role to \"student\".\n",
             "url": {
               "raw": "{{baseUrl}}/users/:handle/license",
               "host": [
@@ -879,9 +877,10 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "raw": "{\n    \"ends\": \"example\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -889,13 +888,13 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Shorten User License",
           "request": {
-            "description": "If the user already has access to the \"Classroom\" version up to a certain time, this shortens/revokes his/her access. If the ends is less than or equal to the current time, it revokes the enrollment and sets the end date to be the current time, else it just shortens the enrollment. #### Example ```javascript url = `https://codecombat.com/api/users/${userID}/shorten-license` json = { ends: new Date().toISOString() } request.put({ url, json, auth }, (err, res) => {\n  console.log(res.body.license.active) // false\n}) ```\n",
+            "description": "If the user already has access to the \"Classroom\" version up to a certain time, this shortens/revokes his/her access. If the ends is less than or equal to the current time, it revokes the enrollment and sets the end date to be the current time, else it just shortens the enrollment.\n",
             "url": {
               "raw": "{{baseUrl}}/users/:handle/shorten-license",
               "host": [
@@ -917,9 +916,10 @@
             },
             "header": [],
             "method": "PUT",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"ends\": \"1994-11-05T13:15:30Z\"\n}",
+              "raw": "{\n    \"ends\": \"example\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -927,10 +927,10 @@
               }
             }
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         },
         {
+          "_type": "endpoint",
           "name": "Search for User",
           "request": {
             "description": "Redirects to `/users/{handle}` given a unique, identifying property",
@@ -959,13 +959,52 @@
               ]
             },
             "header": [],
-            "method": "GET"
+            "method": "GET",
+            "auth": null,
+            "body": null
           },
-          "response": [],
-          "_type": "endpoint"
+          "response": []
         }
-      ],
-      "_type": "container"
+      ]
+    },
+    {
+      "_type": "endpoint",
+      "name": "Add Oauth2 Identity",
+      "request": {
+        "description": "Adds an OAuth2 identity to the user, so that they can be logged in with that identity. You need to send the OAuth code or the access token to this endpoint. 1. If no access token is provided, it will use your OAuth2 token URL to exchange the given code for an access token. 2. Then it will use the access token (given by you, or received from step 1) to look up the user on your service using the lookup URL, and expects a JSON object in response with an `id` property. 3. It will then save that user `id` to the user in our db as a new OAuthIdentity. In this example, we call your lookup URL (let's say, `https://oauth.provider/user?t=<%= accessToken %>`) with the access token (`1234`). The lookup URL returns `{ id: 'abcd' }` in this case, which we save to the user in our db.\n",
+        "url": {
+          "raw": "{{baseUrl}}/users/:handle/o-auth-identities",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":handle",
+            "o-auth-identities"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "key": "handle",
+              "value": "",
+              "description": "The document's `_id` or `slug`."
+            }
+          ]
+        },
+        "header": [],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"provider\": \"example\",\n    \"accessToken\": \"example\",\n    \"code\": \"example\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
     }
   ]
 }
